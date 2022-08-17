@@ -10,6 +10,7 @@ import {
   XIcon,
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import CategorySection from "../Components/CategoriesSection";
 
 const solutions = [
   {
@@ -174,6 +175,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <CategorySection />
     </div>
   );
 }
