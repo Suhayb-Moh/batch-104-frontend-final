@@ -11,39 +11,7 @@ import {
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import CategorySection from "../Components/CategoriesSection";
-
-const solutions = [
-  {
-    name: "Inbox",
-    description:
-      "Get a better understanding of where your traffic is coming from.",
-    href: "#",
-    icon: InboxIcon,
-  },
-  {
-    name: "Messaging",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
-    icon: AnnotationIcon,
-  },
-  {
-    name: "Live Chat",
-    description: "Your customers' data will be safe and secure.",
-    href: "#",
-    icon: ChatAlt2Icon,
-  },
-  {
-    name: "Knowledge Base",
-    description: "Connect with third-party tools that you're already using.",
-    href: "#",
-    icon: QuestionMarkCircleIcon,
-  },
-];
-const navigation = [
-  { name: "Pricing", href: "#" },
-  { name: "Partners", href: "#" },
-  { name: "Company", href: "#" },
-];
+import { Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -53,7 +21,7 @@ const products = [
   {
     id: 1,
     name: "Toyota Harrier",
-    href: "#",
+    href: "/caroverview",
     price: "$39",
     description: "3 sizes available",
     imageSrc:
@@ -155,22 +123,25 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
             {products.map((product) => (
-              <a key={product.id} href={product.href} className="group">
-                <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="w-full h-full object-center object-cover group-hover:opacity-75"
-                  />
-                </div>
-                <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                  <h3>{product.name}</h3>
-                  <p>{product.price}</p>
-                </div>
-                <p className="mt-1 text-sm italic text-gray-500">
-                  {product.description}
-                </p>
-              </a>
+              <Link to="/caroverview">
+                <a key={product.id} href={product.href} className="group">
+                  <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                    <img
+                      src={product.imageSrc}
+                      alt={product.imageAlt}
+                      className="w-full h-full object-center object-cover group-hover:opacity-75"
+                    />
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                    <h3>{product.name}</h3>
+                    <p>{product.price}</p>
+                  </div>
+                  <p className="mt-1 text-sm italic text-gray-500">
+                    {product.description}
+                  </p>
+                </a>
+              </Link>
             ))}
           </div>
         </div>
