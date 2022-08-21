@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [inputs, setInputs] = useState({});
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   async function onSubmitHandler() {
-    // if (inputs.username == null) {
-    //   toast.error("please fill out required fields");
-    // }
+    if (inputs.username == null) {
+      toast.error("please fill out required fields");
+    }
     try {
       const res = await axios.post(
         "http://localhost:8000/users/signup",
         inputs
       );
-      //   toast.success(res.data.message);
+      toast.success(res.data.message);
       console.log(res.data.message);
       navigate("/home");
     } catch (error) {

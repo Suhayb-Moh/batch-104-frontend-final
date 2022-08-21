@@ -11,7 +11,20 @@ import {
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import CategorySection from "../Components/CategoriesSection";
+import Logos from "../Components/Logos";
 import { Link } from "react-router-dom";
+import {
+  BookmarkAltIcon,
+  CalendarIcon,
+  ChartBarIcon,
+  CursorClickIcon,
+  PhoneIcon,
+  PlayIcon,
+  RefreshIcon,
+  ShieldCheckIcon,
+  SupportIcon,
+  ViewGridIcon,
+} from "@heroicons/react/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -25,7 +38,7 @@ const products = [
     price: "$39",
     description: "3 sizes available",
     imageSrc:
-      "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295556190_3245614699057594_3135515241765743762_n.jpg?stp=cp1_dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=SdNw4F5OCIwAX_Gh6tH&_nc_ht=scontent.fhga1-1.fna&oh=00_AT_v_ThuFtZGNPsijZBEy_gNe_7vTwrSg526cGPFdA60aw&oe=62FE2920",
+      "https://previews.dropbox.com/p/thumb/ABpRcIHrOivWwSiHuUZj89CQaXclrTsNPRlZro1Np0OCQDm3bCAjWJAauTXGs7lSALroWuKTBboSfgjSNyxET1NoNeolVWRCJzFfEtmXXrB_-YA64oEbM8XAGAGbnqtwL59VMIhkj7V2x0z8Ny18LloqvzIG80uNFzV_B7kGcNwFEMqR6gTu60sUhoY6Q4D6cFgntlLX3wYS8BlGiocWwCthogkYxNIiUS7EIClf87LkpxCPdS0d1DQQrePZVHoNbARiBhZmURf4PY48C2ijJwLKVyouU6pn5dH0LJ5RcMJ8LQ1Jvb8b_zDyawhco_JICdfihZBEQhjLMpB_WsKFz_Qz1qj95yry-eOZ5C6Q0Lj_EFSLeif8gAi_ElzXq2KK3JA/p.jpeg",
     imageAlt:
       "Person using a pen to cross a task off a productivity paper card.",
   },
@@ -85,68 +98,92 @@ const products = [
   },
   // More products...
 ];
+/* This example requires Tailwind CSS v2.0+ */
 
 export default function Home() {
   return (
-    <div className="bg-white  mt-7">
-      <main>
-        <div>
-          {/* Hero card */}
-          <div className="relative">
-            <div className="max-w-9xl mx-auto sm:px-6 lg:px-8">
-              <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
-                <div className="absolute inset-0">
-                  <img
-                    className="h-full w-full object-cover"
-                    src="https://cdni.autocarindia.com/utils/imageresizer.ashx?n=http://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Verna-300320201643.jpg&w=872&h=578&q=75&c=1"
-                    alt="People working on laptops"
-                  />
-                  <div className="absolute inset-0 bg-indigo-700 mix-blend-multiply" />
+    <div>
+      <div className="relative bg-gray-50">
+        <main className="lg:relative">
+          <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
+            <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
+              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+                <span className="block xl:inline">Choose Your</span>{" "}
+                <span className="block text-indigo-600 xl:inline">
+                  Dream Car
+                </span>
+              </h1>
+              <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
+                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
+                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
+                fugiat aliqua.
+              </p>
+              <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
+                <div className="rounded-md shadow">
+                  <a
+                    href="#"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                  >
+                    Get started
+                  </a>
                 </div>
-                <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                  <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                    <span className="block text-white">Order Your Car</span>
-                    <span className="block text-indigo-200">Now!!!</span>
-                  </h1>
+                <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                  <a
+                    href="#"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
+                  >
+                    Live demo
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
-      {/* Products Section */}
-      <div className="bg-white">
-        <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 id="products-heading" className="sr-only">
-            Products
-          </h2>
+          <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
+            <img
+              className="absolute inset-0 w-full h-full object-cover"
+              src="https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/299351600_3259069344378796_1807598120226063361_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=5YFyrCWsTgAAX-ImCH_&_nc_ht=scontent.fhga1-1.fna&oh=00_AT9D5mUMQ14W9Oxxn0CGHSKDuIZ0CM5U3n0sUR5_2-MLjg&oe=6305D5B1"
+              alt=""
+            />
+          </div>
+        </main>
+      </div>
 
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
-            {products.map((product) => (
-              <Link to="/caroverview">
-                <a key={product.id} href={product.href} className="group">
-                  <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
-                    <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
-                      className="w-full h-full object-center object-cover group-hover:opacity-75"
-                    />
-                  </div>
+      <div className="bg-white  mt-1">
+        {/* Products Section */}
+        <div className="bg-white">
+          <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+            <h2 id="products-heading" className="sr-only">
+              Products
+            </h2>
 
-                  <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                    <h3>{product.name}</h3>
-                    <p>{product.price}</p>
-                  </div>
-                  <p className="mt-1 text-sm italic text-gray-500">
-                    {product.description}
-                  </p>
-                </a>
-              </Link>
-            ))}
+            <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+              {products.map((product) => (
+                <Link to="/caroverview">
+                  <a key={product.id} href={product.href} className="group">
+                    <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
+                      <img
+                        src={product.imageSrc}
+                        alt={product.imageAlt}
+                        className="w-full h-full object-center object-cover group-hover:opacity-75"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                      <h3>{product.name}</h3>
+                      <p>{product.price}</p>
+                    </div>
+                    <p className="mt-1 text-sm italic text-gray-500">
+                      {product.description}
+                    </p>
+                  </a>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
       <CategorySection />
+      <Logos />
     </div>
   );
 }

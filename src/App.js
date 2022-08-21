@@ -8,6 +8,8 @@ import Footer from "./Components/Footer";
 import PageNotFound from "./Pages/PageNotFound";
 import Signup from "./Pages/Signup";
 import CarOverView from "./Pages/CarOverView";
+import Dashboard from "./Pages/Admin/Dashboard";
+import CarRegistration from "./Pages/CarRegistration";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
         <Route path="/404" element={<PageNotFound />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/caroverview" element={<CarOverView />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/carregistration" element={<CarRegistration />} />
       </Routes>
       <ToastContainer
         position="top-right"
