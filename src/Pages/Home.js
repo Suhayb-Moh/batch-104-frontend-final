@@ -1,106 +1,22 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import {
-  AnnotationIcon,
-  ChatAlt2Icon,
-  InboxIcon,
-  MenuIcon,
-  QuestionMarkCircleIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import CategorySection from "../Components/CategoriesSection";
 import Logos from "../Components/Logos";
 import { Link } from "react-router-dom";
-import {
-  BookmarkAltIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
-  ShieldCheckIcon,
-  SupportIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const products = [
-  {
-    id: 1,
-    name: "Toyota Harrier",
-    href: "/caroverview",
-    price: "$39",
-    description: "3 sizes available",
-    imageSrc:
-      "https://previews.dropbox.com/p/thumb/ABpRcIHrOivWwSiHuUZj89CQaXclrTsNPRlZro1Np0OCQDm3bCAjWJAauTXGs7lSALroWuKTBboSfgjSNyxET1NoNeolVWRCJzFfEtmXXrB_-YA64oEbM8XAGAGbnqtwL59VMIhkj7V2x0z8Ny18LloqvzIG80uNFzV_B7kGcNwFEMqR6gTu60sUhoY6Q4D6cFgntlLX3wYS8BlGiocWwCthogkYxNIiUS7EIClf87LkpxCPdS0d1DQQrePZVHoNbARiBhZmURf4PY48C2ijJwLKVyouU6pn5dH0LJ5RcMJ8LQ1Jvb8b_zDyawhco_JICdfihZBEQhjLMpB_WsKFz_Qz1qj95yry-eOZ5C6Q0Lj_EFSLeif8gAi_ElzXq2KK3JA/p.jpeg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 2,
-    name: "Focus Card Holder",
-    href: "#",
-    price: "$64",
-    description: "Walnut",
-    imageSrc:
-      "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295548318_3245613775724353_2521752149924722232_n.jpg?stp=cp1_dst-jpg_p960x960&_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=1Xjh_xcwoAUAX8zymOi&_nc_ht=scontent.fhga1-1.fna&oh=00_AT_BfNMr_reUSXf5yLCrN-ED17nyfhhk4MUCaIMCrh8Iuw&oe=62FE2155",
-    imageAlt: "Paper card sitting upright in walnut card holder on desk.",
-  },
-  {
-    id: 3,
-    name: "Focus Carry Case",
-    href: "#",
-    price: "$32",
-    description: "Heather Gray",
-    imageSrc:
-      "https://scontent.fhga2-1.fna.fbcdn.net/v/t39.30808-6/287825779_3217506105201787_5186040851603330884_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=y2zLzvigXckAX85utY0&_nc_ht=scontent.fhga2-1.fna&oh=00_AT9ubz8WuxYlcVCYe_a3HSHqalC9PpRlraoFGRSm1ZLJLQ&oe=62FECA82",
-    imageAlt:
-      "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.",
-  },
-  {
-    id: 4,
-    name: "Focus Carry Case",
-    href: "#",
-    price: "$32",
-    description: "Heather Gray",
-    imageSrc:
-      "https://scontent.fhga2-1.fna.fbcdn.net/v/t39.30808-6/295663111_3242463142706083_2771092332327238390_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=prtOAWf-aSUAX-7UAW2&_nc_oc=AQkq8-1KY3zHnrDSYwOKp1y-NlBYQ_GNGJxGTOq_s96oFR0nYZEV6xgG8A2r1SpfCoo&_nc_ht=scontent.fhga2-1.fna&oh=00_AT-KYia0lk_awRv6ml7qNERIIA_ViE-CRA6ptkwIdpNAgg&oe=62FEA0CF",
-    imageAlt:
-      "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.",
-  },
-  {
-    id: 5,
-    name: "Focus Carry Case",
-    href: "#",
-    price: "$32",
-    description: "Heather Gray",
-    imageSrc:
-      "https://scontent.fhga2-1.fna.fbcdn.net/v/t39.30808-6/294177118_3239799719639092_4017029875841900168_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=q88_QA5ii9AAX_jtOWB&_nc_ht=scontent.fhga2-1.fna&oh=00_AT-FGl-XPZgUGTtiDHwxE6sdSmjrh1sHnB7LAZ6j3faa7A&oe=62FE6F80",
-    imageAlt:
-      "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.",
-  },
-  {
-    id: 6,
-    name: "Focus Carry Case",
-    href: "#",
-    price: "$32",
-    description: "Heather Gray",
-    imageSrc:
-      "https://scontent.fhga2-1.fna.fbcdn.net/v/t39.30808-6/289379735_3223116207974110_7392156006483924320_n.jpg?stp=cp1_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=3x28xkvZAs4AX8GdapQ&_nc_ht=scontent.fhga2-1.fna&oh=00_AT_QNWIAsGbohQB9UtPz1ETBFyaBQ4sTq0HvqLn1WOUYRg&oe=62FE8263",
-    imageAlt:
-      "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.",
-  },
-  // More products...
-];
-/* This example requires Tailwind CSS v2.0+ */
 
 export default function Home() {
+  const [cars, setCars] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/car")
+      .then((response) => {
+        setCars(response.data.cars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
       <div className="relative bg-gray-50">
@@ -157,25 +73,25 @@ export default function Home() {
             </h2>
 
             <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
-              {products.map((product) => (
-                <Link to="/caroverview">
-                  <a key={product.id} href={product.href} className="group">
+              {cars.map((car) => (
+                <Link to="/caroverview" key={car._id}>
+                  <div className="group">
                     <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={`http://localhost:8000/${car.image}`}
+                        alt={car.modelName}
                         className="w-full h-full object-center object-cover group-hover:opacity-75"
                       />
                     </div>
 
                     <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                      <h3>{product.name}</h3>
-                      <p>{product.price}</p>
+                      <h3>{car.modelName}</h3>
+                      <p>${car.carCategoryName.costPerDay}</p>
                     </div>
                     <p className="mt-1 text-sm italic text-gray-500">
-                      {product.description}
+                      {car.carCategoryName.costPerDay}
                     </p>
-                  </a>
+                  </div>
                 </Link>
               ))}
             </div>
