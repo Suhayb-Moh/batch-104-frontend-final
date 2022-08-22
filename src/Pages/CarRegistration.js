@@ -13,8 +13,7 @@ export default function CarRegistration() {
   const [categories, setCategories] = useState([]);
   const [inputs, setInputs] = useState([]);
 
-  async function onSubmitHandler(e) {
-    e.preventDefault();
+  async function onSubmitHandler() {
     if (inputs.plateNumber == null) {
       toast.error("Please fill out all fields");
     }
@@ -50,10 +49,7 @@ export default function CarRegistration() {
     <div>
       <CarRegistrationSection />
       <div className="min-h-screen w-6/12 mx-auto">
-        <form
-          enctype="multipart/form-data"
-          className="space-y-8 divide-y divide-gray-200"
-        >
+        <div className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200">
             <div className="pt-8">
               <div>
@@ -229,7 +225,7 @@ export default function CarRegistration() {
                             onChange={(e) =>
                               setInputs({
                                 ...inputs,
-                                image: e.target.files[0],
+                                image: e.target.files,
                               })
                             }
                           />
@@ -256,14 +252,14 @@ export default function CarRegistration() {
               </button>
               <button
                 type="submit"
-                onClick={(e) => onSubmitHandler(e)}
+                onClick={onSubmitHandler}
                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Save
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
