@@ -55,11 +55,13 @@ export default function Home() {
             </div>
           </div>
           <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-            <img
-              className="absolute inset-0 w-full h-full object-cover"
-              src="https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/299351600_3259069344378796_1807598120226063361_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=5YFyrCWsTgAAX-ImCH_&_nc_ht=scontent.fhga1-1.fna&oh=00_AT9D5mUMQ14W9Oxxn0CGHSKDuIZ0CM5U3n0sUR5_2-MLjg&oe=6305D5B1"
-              alt=""
-            />
+            {cars.map((car) => (
+              <img
+                className="absolute inset-0 w-full h-full object-cover"
+                src={`http://localhost:8000/${car.image[0]}`}
+                alt=""
+              />
+            ))}
           </div>
         </main>
       </div>
@@ -74,11 +76,11 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
               {cars.map((car) => (
-                <Link to="/caroverview" key={car._id}>
+                <Link to={`/caroverview/${car._id}`} key={car._id}>
                   <div className="group">
                     <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
                       <img
-                        src={`http://localhost:8000/${car.image}`}
+                        src={`http://localhost:8000/${car.image[0]}`}
                         alt={car.modelName}
                         className="w-full h-full object-center object-cover group-hover:opacity-75"
                       />
@@ -89,7 +91,7 @@ export default function Home() {
                       <p>${car.carCategoryName.costPerDay}</p>
                     </div>
                     <p className="mt-1 text-sm italic text-gray-500">
-                      {car.carCategoryName.costPerDay}
+                      {console.log(car)}
                     </p>
                   </div>
                 </Link>
