@@ -12,6 +12,7 @@ import CarRegistration from "./Pages/Admin/CarRegistration";
 import ViewCarList from "./Pages/Admin/ViewCarsList";
 import Categories from "./Pages/Admin/Categories";
 import AddCategory from "./Pages/Admin/AddCategory";
+import BrowsCategories from "./Pages/BrowseCategories";
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
         <Route path="admin/addcategory" element={<AddCategory />} />
         <Route path="admin/viewcars" element={<ViewCarList />} />
         <Route path="admin/categories" element={<Categories />} />
+        <Route path="/browsecategories/:id" element={<BrowsCategories />} />
         <Route path="admin/carregistration/:id" element={<CarRegistration />} />
       </Routes>
       <ToastContainer

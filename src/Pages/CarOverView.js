@@ -5,44 +5,6 @@ import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/solid";
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
 
-const product = {
-  name: "Toyota Harrier",
-  price: "$35",
-  rating: 3,
-  images: [
-    {
-      id: 1,
-      name: "Toyota Harrier",
-      // src: "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295539229_3245614902390907_6146478477194368868_n.jpg?stp=cp1_dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=2Wc6bEx0LKIAX9k56FS&_nc_ht=scontent.fhga1-1.fna&oh=00_AT_nvk-N5PWj6NAo-vYXRxSizr_HajoPTNPC-_6QjTN-Fw&oe=63061C16",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 2,
-
-      name: "Toyota Harrier",
-      // src: "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295511282_3245614855724245_6646551274541553691_n.jpg?stp=cp1_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=ALT5MOuEyDMAX8MCvZp&_nc_oc=AQllWHjjNfFJ5H1YmIhTY2-i7KwXmMZshVMojnLOXzUaeVvQzjG4sFvqsHJcdLZIAOE&_nc_ht=scontent.fhga1-1.fna&oh=00_AT8H6wiVIspnGZgGG7uT8aptzd63BdM2KizwNWdIjHf62Q&oe=6301F8E8",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 3,
-      name: "Toyota Harrier",
-      src: "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295526084_3245614879057576_3553515484039953055_n.jpg?stp=cp1_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=6YT_lk6YgLkAX_3UMQp&_nc_ht=scontent.fhga1-1.fna&oh=00_AT--fjyoGYhMQazTmVmH6iTsQARYItYPJYUjkzc58Ba5Pw&oe=6302FA1B",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 4,
-      name: "Toyota Harrier",
-      // src: "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295497990_3245614792390918_2986231986220610640_n.jpg?stp=cp1_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=kRPbNDHzT2oAX-uXPlg&_nc_ht=scontent.fhga1-1.fna&oh=00_AT-eZTDg9YEI7nMBwKzpbA3PBrDkw2b4NVEaLqyx_51XfA&oe=6302C715",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    // More images...
-  ],
-
-  description: `
-    <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  `,
-};
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }

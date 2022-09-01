@@ -12,16 +12,15 @@ export default function Categories() {
       .get("http://localhost:8000/categories")
       .then((response) => {
         setCategories(response.data.categories);
-        console.log(response.data.categories);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
   // function for delete
-  async function removeCar(id) {
+  async function removeCategory(id) {
     try {
-      axios.delete(`http://localhost:8000/car/${id}`);
+      axios.delete(`http://localhost:8000/categories/${id}`);
       toast.success("Car Deleted");
     } catch (error) {
       toast.error("Error deleting");
@@ -101,11 +100,11 @@ export default function Categories() {
                         <tr key={index}>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             <div className="h-10 w-10 flex-shrink-0">
-                              {/* <img
+                              <img
                                 className="h-10 w-10 rounded-full"
-                                src={`http://localhost:8000/${car.image[0]}`}
+                                src={`http://localhost:8000/${category.image}`}
                                 alt=""
-                              /> */}
+                              />
                             </div>
                           </td>
                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
@@ -146,7 +145,7 @@ export default function Categories() {
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <div
                               className="text-red-600 hover:text-red-900 cursor-pointer"
-                              onClick={() => removeCar(category._id)}
+                              onClick={() => removeCategory(category._id)}
                             >
                               Delete
                             </div>
