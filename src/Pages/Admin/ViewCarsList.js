@@ -79,6 +79,12 @@ export default function Example() {
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
+                          Cost Per Day
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
                           Availability
                         </th>
                         <th
@@ -122,7 +128,11 @@ export default function Example() {
                           </td>
 
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {car.carCategoryName.costPerDay}
+                            {car.carCategoryName.categoryName}
+                          </td>
+
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            ${car.carCategoryPrice.costPerDay}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
@@ -133,7 +143,7 @@ export default function Example() {
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <Link
-                              to={`/admin/menu/edit/${car._id}`}
+                              to={`/admin/carregistration/edit/${car._id}`}
                               className="text-indigo-600 hover:text-indigo-900"
                             >
                               Edit

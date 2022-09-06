@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { UserAddIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -11,15 +11,14 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Car Categories", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
-  { name: "About Us", href: "#", current: false },
+  { name: "Home", to: "/", current: true },
+  // { name: "Car Categories", to: "/", current: false },
+  { name: "Contact Us", to: "/contact", current: false },
+  { name: "About Us", to: "/about", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Profile", to: "/profile" },
+  { name: "Password", to: "/updatepassword" },
 ];
 
 function classNames(...classes) {
@@ -27,6 +26,11 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const navigate = useNavigate();
+  function logoutHandler() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
   return (
     <Disclosure as="nav" className="bg-gray-800 z-10">
       {({ open }) => (
@@ -59,9 +63,9 @@ export default function Header() {
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.to}
                       className={classNames(
                         item.current
                           ? "bg-gray-900 text-white"
@@ -71,25 +75,29 @@ export default function Header() {
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
               <div className="flex items-center">
-                <Link to="/signup">
-                  <div className="flex-shrink-0">
-                    <button
-                      type="button"
-                      className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
-                    >
-                      <UserAddIcon
-                        className="-ml-1 mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      <span>Sign Up</span>
-                    </button>
-                  </div>
-                </Link>
+                {localStorage.getItem("token") ? (
+                  ""
+                ) : (
+                  <Link to="/signup">
+                    <div className="flex-shrink-0">
+                      <button
+                        type="button"
+                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                      >
+                        <UserAddIcon
+                          className="-ml-1 mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
+                        <span>Sign Up</span>
+                      </button>
+                    </div>
+                  </Link>
+                )}
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
@@ -112,22 +120,39 @@ export default function Header() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white z-40 ring-1 ring-black ring-opacity-5 focus:outline-none">
                         {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
-                              <a
-                                href={item.href}
+                              <Link
+                                to={item.to}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 {item.name}
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                         ))}
+                        {localStorage.getItem("token") ? (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                                onClick={logoutHandler}
+                              >
+                                Sign out
+                              </div>
+                            )}
+                          </Menu.Item>
+                        ) : (
+                          ""
+                        )}
                       </Menu.Items>
                     </Transition>
                   </Menu>

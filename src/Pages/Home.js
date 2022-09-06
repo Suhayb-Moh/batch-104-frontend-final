@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const [cars, setCars] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/car")
@@ -30,7 +31,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                Hada Dalbo | Hel Xiligaad
+                Hada Dalbo | Hel Wakhtigaad Rabto
               </p>
             </div>
           </div>
@@ -68,10 +69,10 @@ export default function Home() {
 
                     <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
                       <h3>{car.modelName}</h3>
-                      <p>${car.carCategoryName.costPerDay}</p>
+                      <p>${car.carCategoryPrice.costPerDay}</p>
                     </div>
                     <p className="mt-1 text-sm italic text-gray-500">
-                      {car.modelName}
+                      {car.carCategoryName.categoryName}
                     </p>
                   </div>
                 </Link>

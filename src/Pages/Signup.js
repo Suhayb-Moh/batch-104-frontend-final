@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
   const [inputs, setInputs] = useState({});
@@ -16,8 +16,8 @@ export default function Signup() {
         inputs
       );
       toast.success(res.data.message);
-      console.log(res.data.message);
-      navigate("/home");
+      localStorage.setItem("token", res.data.token);
+      navigate("/login");
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -151,11 +151,30 @@ export default function Signup() {
                       Sign up
                     </button>
                   </div>
+                  <div>
+                    <div className="mt-6 relative">
+                      <div
+                        className="absolute inset-0 flex items-center"
+                        aria-hidden="true"
+                      >
+                        <div className="w-full border-t border-gray-300" />
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-white text-gray-500">
+                          Already have account?{" "}
+                          <Link to="/login" className="font-bold">
+                            Login
+                          </Link>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div className="hidden lg:block relative w-0 flex-1">
           <img
             className="absolute inset-0 h-full w-full object-cover"

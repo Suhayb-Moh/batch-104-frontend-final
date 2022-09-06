@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
+import { Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/solid";
-import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
+import { HeartIcon } from "@heroicons/react/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -13,6 +13,8 @@ export default function CarOverView() {
   const [carInfo, setCarInfo] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [price, setPrice] = useState([]);
+  const [name, setName] = useState([]);
+
   const { id } = useParams();
   useEffect(() => {
     axios
@@ -20,7 +22,8 @@ export default function CarOverView() {
       .then((response) => {
         setCarInfo(response.data.result);
         setImgs(response.data.result.image);
-        setPrice(response.data.result.carCategoryName.costPerDay);
+        setPrice(response.data.result.carCategoryPrice.costPerDay);
+        setName(response.data.result.carCategoryName.categoryName);
       })
       .catch((error) => {
         console.log(error);
@@ -110,6 +113,17 @@ export default function CarOverView() {
                 </div>
                 <p className="sr-only">{carInfo.rating} out of 5 stars</p>
               </div>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="sr-only">Description</h3>
+
+              <div
+                className="text-base text-gray-700 space-y-6"
+                dangerouslySetInnerHTML={{
+                  __html: `Category: ${name}'s`,
+                }}
+              />
             </div>
 
             <form className="mt-6">

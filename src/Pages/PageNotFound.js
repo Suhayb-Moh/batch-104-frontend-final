@@ -1,4 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
+import { Link } from "react-router-dom";
 export default function PageNotFound() {
   return (
     <>
@@ -6,7 +6,7 @@ export default function PageNotFound() {
         <main className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex-shrink-0 flex justify-center">
             <a href="/" className="inline-flex">
-              <span className="sr-only">Workflow</span>
+              <span className="sr-only">Rent and Ride</span>
               <img
                 className="h-12 w-auto"
                 src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg"
@@ -26,12 +26,12 @@ export default function PageNotFound() {
                 Sorry, we couldn’t find the page you’re looking for.
               </p>
               <div className="mt-6">
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="text-base font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Go back home<span aria-hidden="true"> &rarr;</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

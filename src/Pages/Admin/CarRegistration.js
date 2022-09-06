@@ -3,7 +3,7 @@ import Dashboard from "../../Components/Dashboard";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const notificationMethods = [
   { id: "available", title: "Available", value: "true" },
@@ -15,6 +15,14 @@ export default function CarRegistration() {
   const [inputs, setInputs] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/car/${id}`)
+      .then((res) => setInputs(res.data.result));
+  }, []);
+
   async function uploadFileHandler(e) {
     setImageFiles(e.target.files);
   }
@@ -56,6 +64,8 @@ export default function CarRegistration() {
       });
   }, []);
 
+  async function handleOnEdit() {}
+
   return (
     <div>
       <Dashboard />
@@ -88,6 +98,7 @@ export default function CarRegistration() {
                         onChange={(e) =>
                           setInputs({ ...inputs, plateNumber: e.target.value })
                         }
+                        value={inputs.plateNumber}
                       />
                     </div>
                   </div>
@@ -109,6 +120,7 @@ export default function CarRegistration() {
                         onChange={(e) =>
                           setInputs({ ...inputs, modelName: e.target.value })
                         }
+                        value={inputs.modelName}
                       />
                     </div>
                   </div>
@@ -130,6 +142,7 @@ export default function CarRegistration() {
                         onChange={(e) =>
                           setInputs({ ...inputs, modelYear: e.target.value })
                         }
+                        value={inputs.modelYear}
                       />
                     </div>
                   </div>
@@ -153,6 +166,7 @@ export default function CarRegistration() {
                             carCategoryName: e.target.value,
                           })
                         }
+                        value={inputs.carCategoryName}
                       >
                         <option>Please Select Category</option>
                         {categories.map((category) => (
@@ -259,13 +273,23 @@ export default function CarRegistration() {
                 >
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  onClick={(e) => onSubmitHandler}
-                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Save
-                </button>
+                {id ? (
+                  <button
+                    type="submit"
+                    onClick={(e) => handleOnEdit}
+                    className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    onClick={(e) => onSubmitHandler}
+                    className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Save
+                  </button>
+                )}
               </div>
             </div>
           </form>
