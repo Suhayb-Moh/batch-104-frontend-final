@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-
+import { UserContext } from "../Utils/UserContext";
 export default function Signup() {
   const [inputs, setInputs] = useState({});
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   async function onSubmitHandler() {
     if (inputs.username == null) {
@@ -17,7 +18,8 @@ export default function Signup() {
       );
       toast.success(res.data.message);
       localStorage.setItem("token", res.data.token);
-      navigate("/login");
+      setUser(true);
+      navigate("/");
     } catch (error) {
       console.log(error.response.data.message);
     }

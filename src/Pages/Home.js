@@ -36,8 +36,9 @@ export default function Home() {
             </div>
           </div>
           <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-            {cars.map((car) => (
+            {cars.map((car, index) => (
               <img
+                key={index}
                 className="absolute inset-0 w-full h-full object-cover"
                 src={`http://localhost:8000/${car.image[0]}`}
                 alt=""

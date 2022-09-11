@@ -1,22 +1,25 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
-import { useState, useContext } from "react";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { userContext } from "../Utils/userContext";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
-  const [inputs, setInputs] = useState([]);
+import { useContext } from "react";
+import { UserContext } from "../Utils/UserContext";
+
+function Login() {
+  const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
-  const { user } = useContext(userContext);
-  async function submitHandler(e) {
-    e.preventDefault();
+  const { setUser } = useContext(UserContext);
+  async function submitHandler() {
     try {
       const res = await axios.post("http://localhost:8000/users/login", inputs);
       toast.success(res.data.message);
       localStorage.setItem("token", res.data.token);
+      setUser(true);
       navigate("/");
-    } catch (error) {
-      toast.error(error.response.data.message);
+    } catch (e) {
+      console.log(e);
     }
   }
   return (
@@ -35,12 +38,7 @@ export default function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form
-              className="space-y-6"
-              action="#"
-              method="POST"
-              onSubmit={submitHandler}
-            >
+            <div className="space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -89,7 +87,7 @@ export default function Login() {
                 <button
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={(e) => submitHandler}
+                  onClick={submitHandler}
                 >
                   Sign in
                 </button>
@@ -112,10 +110,11 @@ export default function Login() {
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
 }
+export default Login;
