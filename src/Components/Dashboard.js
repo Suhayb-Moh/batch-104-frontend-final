@@ -3,24 +3,23 @@ import { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import CarRegistration from "../Pages/Admin/CarRegistration";
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  MenuIcon,
-  UsersIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+import { HomeIcon, MenuIcon, UsersIcon, XIcon } from "@heroicons/react/outline";
+import { HiBookmark, HiOutlineViewBoards } from "react-icons/hi";
+import { AiFillCar } from "react-icons/ai";
 
 const navigation = [
   { name: "Dashboard", path: "/", icon: HomeIcon, current: true },
-  { name: "Cars", path: "/admin/viewcars", icon: UsersIcon, current: false },
+  { name: "Cars", path: "/admin/viewcars", icon: AiFillCar, current: false },
   {
     name: "Categories",
     path: "/admin/categories",
-    icon: UsersIcon,
+    icon: HiOutlineViewBoards,
+    current: false,
+  },
+  {
+    name: "Bookings",
+    path: "/admin/bookings",
+    icon: HiBookmark,
     current: false,
   },
   // { name: "Projects", href: "#", icon: FolderIcon, current: false },
@@ -161,25 +160,6 @@ export default function Dashboard() {
                   </Link>
                 ))}
               </nav>
-            </div>
-            <div className="flex-shrink-0 flex bg-gray-700 p-4">
-              <a href="#" className="flex-shrink-0 w-full group block">
-                <div className="flex items-center">
-                  <div>
-                    <img
-                      className="inline-block h-9 w-9 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-white">Tom Cook</p>
-                    <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
-                      View profile
-                    </p>
-                  </div>
-                </div>
-              </a>
             </div>
           </div>
         </div>

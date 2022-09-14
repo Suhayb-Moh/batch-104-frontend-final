@@ -1,6 +1,5 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { UserContext } from "./Utils/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +21,8 @@ import ChangePassword from "./Pages/ChangePassword";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Protect from "./Protect";
+import Cars from "./Pages/Cars";
+import Bookings from "./Pages/Admin/Bookings";
 
 function App() {
   const [user, setUser] = useState(false);
@@ -41,7 +42,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/404" element={<PageNotFound />} />
+          <Route path="/cars" element={<Cars />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/updatepassword" element={<ChangePassword />} />
@@ -51,6 +52,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Protect />}>
             <Route path="dashboard" element={<ViewCarList />} />
+            <Route path="bookings" element={<Bookings />} />
             <Route path="carregistration" element={<CarRegistration />} />{" "}
             <Route
               path="carregistration/edit/:id"

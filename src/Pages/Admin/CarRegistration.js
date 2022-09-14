@@ -3,25 +3,21 @@ import Dashboard from "../../Components/Dashboard";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
-
-const notificationMethods = [
-  { id: "available", title: "Available", value: "true" },
-  { id: "not-available", title: "Not Available", value: "false" },
-];
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 export default function CarRegistration() {
   const [categories, setCategories] = useState([]);
-  const [inputs, setInputs] = useState([]);
+  const [inputs, setInputs] = useState({});
   const [imageFiles, setImageFiles] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
+    if (!id) return;
     axios
       .get(`http://localhost:8000/car/${id}`)
       .then((res) => setInputs(res.data.result));
-  }, []);
+  }, [id]);
 
   async function uploadFileHandler(e) {
     setImageFiles(e.target.files);
@@ -38,7 +34,15 @@ export default function CarRegistration() {
       formData.append("modelName", inputs.modelName);
       formData.append("modelYear", inputs.modelYear);
       formData.append("carCategoryName", inputs.carCategoryName);
-      formData.append("availablibiltyFlag", inputs.availablibiltyFlag);
+      formData.append("carCategoryPrice", inputs.carCategoryPrice);
+
+      if (inputs.available === "on") {
+        formData.append("available", true);
+      }
+      if (inputs.notAvailable === "on") {
+        formData.append("notAvailable", true);
+      }
+
       for (let i = 0; i < imageFiles.length; i++) {
         console.log(imageFiles[i]);
         formData.append("image", imageFiles[i]);
@@ -56,7 +60,7 @@ export default function CarRegistration() {
     axios
       .get("http://localhost:8000/categories")
       .then((response) => {
-        response.data.categories.map((category) => category._id);
+        // response.data.categories.map((category) => category._id);
         setCategories(response.data.categories);
       })
       .catch((error) => {
@@ -142,7 +146,6 @@ export default function CarRegistration() {
                         onChange={(e) =>
                           setInputs({ ...inputs, modelYear: e.target.value })
                         }
-                        value={inputs.modelYear}
                       />
                     </div>
                   </div>
@@ -166,7 +169,6 @@ export default function CarRegistration() {
                             carCategoryName: e.target.value,
                           })
                         }
-                        value={inputs.carCategoryName}
                       >
                         <option>Please Select Category</option>
                         {categories.map((category) => (
@@ -182,32 +184,44 @@ export default function CarRegistration() {
                     <fieldset className="mt-4">
                       <legend className="sr-only">Notification method</legend>
                       <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                        {notificationMethods.map((notificationMethod) => (
-                          <div
-                            key={notificationMethod.id}
-                            className="flex items-center"
+                        <div className="flex items-center">
+                          <input
+                            id="available"
+                            name="ava63109cfb95311dfa03c7d94463109cfb95311dfa03c7d94463109cfb95311dfa03c7d94463109cfb95311dfa03c7d94463109cfb95311dfa03c7d94463109cfb95311dfa03c7d94463109cfb95311dfa03c7d944ilable"
+                            type="radio"
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                            onChange={(e) =>
+                              setInputs({
+                                ...inputs,
+                                available: e.target.value,
+                              })
+                            }
+                          />
+                          <label
+                            htmlFor="available"
+                            className="ml-3 block text-sm font-medium text-gray-700"
                           >
-                            <input
-                              id={notificationMethod.id}
-                              name="notification-method"
-                              type="radio"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                              value={notificationMethod.value}
-                              onChange={(e) =>
-                                setInputs({
-                                  ...inputs,
-                                  availablibiltyFlag: e.target.value,
-                                })
-                              }
-                            />
-                            <label
-                              htmlFor={notificationMethod.id}
-                              className="ml-3 block text-sm font-medium text-gray-700"
-                            >
-                              {notificationMethod.title}
-                            </label>
-                          </div>
-                        ))}
+                            Availabl
+                          </label>
+                          <input
+                            id="available"
+                            name="notification-method"
+                            type="radio"
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                            onChange={(e) =>
+                              setInputs({
+                                ...inputs,
+                                notAvailable: e.target.value,
+                              })
+                            }
+                          />
+                          <label
+                            htmlFor="available"
+                            className="ml-3 block text-sm font-medium text-gray-700"
+                          >
+                            Not Available
+                          </label>
+                        </div>
                       </div>
                     </fieldset>
                   </div>
@@ -267,12 +281,15 @@ export default function CarRegistration() {
 
             <div className="pt-5">
               <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Cancel
-                </button>
+                <Link to="/admin/viewcars">
+                  {" "}
+                  <button
+                    type="button"
+                    className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Cancel
+                  </button>
+                </Link>
                 {id ? (
                   <button
                     type="submit"

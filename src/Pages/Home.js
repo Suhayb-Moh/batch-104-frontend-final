@@ -4,20 +4,26 @@ import axios from "axios";
 import CategorySection from "../Components/CategoriesSection";
 import Logos from "../Components/Logos";
 import { Link } from "react-router-dom";
+import { AiOutlineRight } from "react-icons/ai";
+import classes from "../Components/Modal.module.css";
 
 export default function Home() {
   const [cars, setCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/car")
       .then((response) => {
-        setCars(response.data.cars);
+        setCars(response.data.cars.slice(0, 6));
+
+        setIsLoading(true);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
   return (
     <div>
       <div className="relative bg-gray-50">
@@ -52,11 +58,13 @@ export default function Home() {
         {/* Products Section */}
         <div className="bg-white">
           <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h2 id="products-heading" className="sr-only">
-              Products
-            </h2>
-
-            <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+            <Link to="/cars">
+              <div className="flex items-center font-bold font-xl">
+                <h3>View All</h3>
+                <AiOutlineRight />
+              </div>
+            </Link>
+            <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8 my-10">
               {cars.map((car) => (
                 <Link to={`/caroverview/${car._id}`} key={car._id}>
                   <div className="group">

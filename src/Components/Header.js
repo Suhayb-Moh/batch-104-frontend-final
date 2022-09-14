@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { UserAddIcon } from "@heroicons/react/solid";
+import { AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 
 const user = {
@@ -50,16 +50,18 @@ export default function Header() {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg"
-                    alt="Workflow"
-                  />
+                  <Link to="/">
+                    <img
+                      className="block lg:hidden h-8 w-auto"
+                      src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg"
+                      alt="Workflow"
+                    />
+                    <img
+                      className="hidden lg:block h-8 w-auto"
+                      src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg"
+                      alt="Workflow"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                   {navigation.map((item) => (
@@ -83,17 +85,17 @@ export default function Header() {
                 {localStorage.getItem("token") ? (
                   ""
                 ) : (
-                  <Link to="/signup">
+                  <Link to="/login">
                     <div className="flex-shrink-0">
                       <button
                         type="button"
                         className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                       >
-                        <UserAddIcon
+                        <AiOutlineUser
                           className="-ml-1 mr-2 h-5 w-5"
                           aria-hidden="true"
                         />
-                        <span>Sign Up</span>
+                        <span>Login</span>
                       </button>
                     </div>
                   </Link>
@@ -143,7 +145,7 @@ export default function Header() {
                                 <div
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
+                                    "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                                   )}
                                   onClick={logoutHandler}
                                 >
@@ -168,10 +170,10 @@ export default function Header() {
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navigation.map((item) => (
-                <Disclosure.Button
+                <Link
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  to={item.to}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
@@ -181,30 +183,45 @@ export default function Header() {
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </Disclosure.Button>
+                </Link>
               ))}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
-              <div className="flex items-center px-5 sm:px-6">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                  />
+              {token ? (
+                <div className="flex items-center px-5 sm:px-6">
+                  <div className="flex-shrink-0">
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={user.imageUrl}
+                      alt=""
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
+
               <div className="mt-3 px-2 space-y-1 sm:px-3">
                 {userNavigation.map((item) => (
-                  <Disclosure.Button
+                  <Link
                     key={item.name}
                     as="a"
-                    href={item.href}
+                    to={item.to}
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                   >
                     {item.name}
-                  </Disclosure.Button>
+                  </Link>
                 ))}
+                {localStorage.getItem("token") ? (
+                  <div
+                    className="cursor-pointer	block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    onClick={logoutHandler}
+                  >
+                    Sign out
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </Disclosure.Panel>

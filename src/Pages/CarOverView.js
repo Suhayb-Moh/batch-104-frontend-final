@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/solid";
 import { HeartIcon } from "@heroicons/react/outline";
+import Modal from "../Components/Modal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +15,11 @@ export default function CarOverView() {
   const [imgs, setImgs] = useState([]);
   const [price, setPrice] = useState([]);
   const [name, setName] = useState([]);
+  const [modalOn, setModalOn] = useState(false);
+
+  const modalHandler = () => {
+    setModalOn(true);
+  };
 
   const { id } = useParams();
   useEffect(() => {
@@ -126,30 +132,18 @@ export default function CarOverView() {
               />
             </div>
 
-            <form className="mt-6">
+            <div className="mt-6">
               {/* Colors */}
-              <div></div>
 
               <div className="mt-10 flex sm:flex-col1">
                 <button
-                  type="submit"
                   className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                  onClick={modalHandler}
                 >
                   Book Now
                 </button>
-
-                <button
-                  type="button"
-                  className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-                >
-                  <HeartIcon
-                    className="h-6 w-6 flex-shrink-0"
-                    aria-hidden="true"
-                  />
-                  <span className="sr-only">Add to favorites</span>
-                </button>
               </div>
-            </form>
+            </div>
 
             <section aria-labelledby="details-heading" className="mt-12">
               <h2 id="details-heading" className="sr-only">
@@ -159,6 +153,7 @@ export default function CarOverView() {
           </div>
         </div>
       </div>
+      {modalOn && <Modal setModalOn={setModalOn} />}
     </div>
   );
 }
