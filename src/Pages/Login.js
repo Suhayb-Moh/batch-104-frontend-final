@@ -3,7 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 import { useContext } from "react";
 import { UserContext } from "../Utils/UserContext";
 
@@ -24,6 +25,7 @@ function Login() {
   }
   return (
     <>
+      <Header />
       <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
@@ -114,6 +116,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

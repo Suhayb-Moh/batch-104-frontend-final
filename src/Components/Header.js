@@ -7,16 +7,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 const user = {
   imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRr0YlatAy-hrNCQjzZ7fqDzNiXt7HGmzVaA&usqp=CAU",
 };
 const navigation = [
   { name: "Home", to: "/", current: true },
-  // { name: "Car Categories", to: "/", current: false },
+  { name: "Categories", to: "/allcategories", current: false },
+  { name: "Cars", to: "/cars", current: false },
   { name: "Contact Us", to: "/contact", current: false },
   { name: "About Us", to: "/about", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", to: "/profile" },
+  // { name: "Your Profile", to: "/profile" },
   { name: "Password", to: "/updatepassword" },
 ];
 

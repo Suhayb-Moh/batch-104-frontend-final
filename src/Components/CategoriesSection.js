@@ -3,42 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const categories = [
-  {
-    name: "Sedans",
-    href: "#",
-    imageSrc:
-      "https://imgd.aeplcdn.com/600x337/n/cw/ec/41197/hyundai-verna-right-front-three-quarter7.jpeg?q=75",
-  },
-  {
-    name: "SUV's",
-    href: "#",
-    imageSrc:
-      "https://www.drivespark.com/car-image/640x480x100/car/x33804656-mahindra_xuv700.jpg.pagespeed.ic.Oehde-DhPZ.jpg",
-  },
-  {
-    name: "Family Cars",
-    href: "#",
-    imageSrc:
-      "https://cdn.24.co.za/files/Cms/General/d/7585/6c9b630ddfb44d3b9e7f867b11f1a2da.jpg",
-  },
-  {
-    name: "Land Cruisers",
-    href: "#",
-    imageSrc:
-      "https://imgd.aeplcdn.com/664x374/cw/ec/20695/Toyota-Land-Cruiser-Right-Front-Three-Quarter-60016.jpg?v=201711021421&q=75",
-  },
-  {
-    name: "Small Cars",
-    href: "#",
-    imageSrc:
-      "https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295548318_3245613775724353_2521752149924722232_n.jpg?stp=cp1_dst-jpg_p960x960&_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=1Xjh_xcwoAUAX8zymOi&_nc_ht=scontent.fhga1-1.fna&oh=00_AT_BfNMr_reUSXf5yLCrN-ED17nyfhhk4MUCaIMCrh8Iuw&oe=62FE2155",
-  },
-];
-
 const CategoriesSection = () => {
   const [categories, setCategories] = useState([]);
-  const [cars, setCars] = useState([]);
 
   useEffect(() => {
     axios

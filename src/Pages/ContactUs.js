@@ -1,8 +1,10 @@
 import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
-
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 export default function ContactUs() {
   return (
     <div className="bg-gray-100">
+      <Header />
       <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
         <div className="relative bg-white shadow-xl">
           <h2 className="sr-only">Contact us</h2>
@@ -335,6 +337,7 @@ export default function ContactUs() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

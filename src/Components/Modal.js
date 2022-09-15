@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
@@ -8,17 +8,47 @@ import { toast } from "react-toastify";
 
 export default function Modal({ setModalOn }) {
   const [open, setOpen] = useState(true);
-  const [inputs, setInputs] = useState([]);
+  const [inputs, setInputs] = useState({});
+  const [carInfo, setCarInfo] = useState("");
+  const [plate, setPlate] = useState("");
+  const [available, setAvailable] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
+  const amountRef = useRef({ inputs });
+  const plateRef = useRef({ inputs });
+
+  useEffect(() => {
+    // console.log(amountRef.current.value);
+    // console.log(plateRef.current.value);
+  });
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/car/${id}`).then((response) => {
+      setCarInfo(
+        response.data.result.carCategoryPrice.costPerDay * inputs.duration
+      );
+      setPlate(response.data.result.plateNumber);
+      setAvailable(response.data.result.available);
+    });
+  });
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/bookings`).then((response) => {
+      response.data.bookings.map((booking) =>
+        booking.plateNumber.includes(plate) === true
+          ? (inputs.status = "approved")
+          : "pending"
+      );
+    });
+  });
 
   async function submitHandler() {
     try {
+      inputs.amount = amountRef.current.value;
+      inputs.plateNumber = plateRef.current.value;
       const res = await axios.post("http://localhost:8000/bookings", inputs);
-      console.log((inputs.amount = id));
-      console.log(id);
       toast.success(res.data.message);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -154,69 +184,22 @@ export default function Modal({ setModalOn }) {
 
                     <div className="sm:col-span-3">
                       <label
-                        htmlFor="amount"
+                        htmlFor="days"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Id
+                        Duration
                       </label>
                       <div className="mt-1">
                         <input
-                          id="amount"
-                          name="amount"
-                          type="text"
-                          autoComplete="amount"
+                          type="number"
+                          name="duration"
+                          id="duration"
+                          autoComplete="duration"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           onChange={(e) =>
                             setInputs({
                               ...inputs,
-                              amount: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="fromDate"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        From
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="date"
-                          name="fromDate"
-                          id="fromDate"
-                          autoComplete="fromDate"
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          onChange={(e) =>
-                            setInputs({
-                              ...inputs,
-                              fromDateTime: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="returnDate"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        To
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="date"
-                          name="returnDate"
-                          id="returnDate"
-                          autoComplete="returnDate"
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          onChange={(e) =>
-                            setInputs({
-                              ...inputs,
-                              returnDateTime: e.target.value,
+                              duration: e.target.value,
                             })
                           }
                         />
@@ -249,6 +232,27 @@ export default function Modal({ setModalOn }) {
 
                     <div className="sm:col-span-3">
                       <label
+                        htmlFor="amount"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Amount
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          disabled
+                          defaultValue={carInfo || ""}
+                          name="amount"
+                          id="amount"
+                          autoComplete="amount"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          ref={amountRef}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <label
                         htmlFor="phone"
                         className="block text-sm font-medium text-gray-700"
                       >
@@ -267,6 +271,26 @@ export default function Modal({ setModalOn }) {
                               phoneNumber: e.target.value,
                             })
                           }
+                        />
+                      </div>
+                    </div>
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="plateNumber"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        PlateNumber
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          disabled
+                          defaultValue={plate}
+                          name="plateNumber"
+                          id="plateNumber"
+                          autoComplete="plateNumber"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          ref={plateRef}
                         />
                       </div>
                     </div>

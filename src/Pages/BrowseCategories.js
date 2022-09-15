@@ -1,10 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,7 +21,6 @@ export default function BrowseCategories() {
       .get(`http://localhost:8000/car/sortbyid/${id}`)
       .then((response) => {
         setCars(response.data.cars);
-        console.log(response.data.cars);
       })
       .catch((error) => {
         console.log(error);
@@ -28,6 +28,7 @@ export default function BrowseCategories() {
   }, [id]);
   return (
     <div className="bg-white">
+      <Header />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog
@@ -134,6 +135,7 @@ export default function BrowseCategories() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

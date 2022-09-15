@@ -2,12 +2,12 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-// import { userContext } from "../Utils/userContext";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 export default function Login() {
   const [passwordInputs, setPasswordInputs] = useState([]);
   const navigate = useNavigate();
-  //   const { setUser } = useContext(UserContext);
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -29,6 +29,7 @@ export default function Login() {
   }
   return (
     <>
+      <Header />
       <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
@@ -138,6 +139,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

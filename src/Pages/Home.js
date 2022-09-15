@@ -5,7 +5,7 @@ import CategorySection from "../Components/CategoriesSection";
 import Logos from "../Components/Logos";
 import { Link } from "react-router-dom";
 import { AiOutlineRight } from "react-icons/ai";
-import classes from "../Components/Modal.module.css";
+import Header from "../Components/Header";
 
 export default function Home() {
   const [cars, setCars] = useState([]);
@@ -26,6 +26,7 @@ export default function Home() {
 
   return (
     <div>
+      <Header />
       <div className="relative bg-gray-50">
         <main className="lg:relative">
           <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">

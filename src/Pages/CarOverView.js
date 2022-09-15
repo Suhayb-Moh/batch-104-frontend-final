@@ -3,8 +3,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/solid";
-import { HeartIcon } from "@heroicons/react/outline";
 import Modal from "../Components/Modal";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +15,7 @@ export default function CarOverView() {
   const [carInfo, setCarInfo] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [price, setPrice] = useState([]);
+  const [checkPlates, setCheckPlates] = useState();
   const [name, setName] = useState([]);
   const [modalOn, setModalOn] = useState(false);
 
@@ -36,8 +38,19 @@ export default function CarOverView() {
       });
   }, [id]);
 
+  useEffect(() => {
+    axios.get(`http://localhost:8000/bookings`).then((response) => {
+      setCheckPlates(
+        response.data.bookings.map((booking) =>
+          booking.plateNumber.includes(carInfo.plateNumber)
+        )
+      );
+    });
+  }, []);
+
   return (
     <div className="bg-white min-h-screen">
+      <Header />
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
           {/* Image gallery */}
@@ -132,13 +145,24 @@ export default function CarOverView() {
               />
             </div>
 
+            <div className="mt-6 text-base text-red-700 space-y-6 italic">
+              {carInfo.available === false
+                ? "This car is not currently available"
+                : ""}
+            </div>
+
             <div className="mt-6">
               {/* Colors */}
 
               <div className="mt-10 flex sm:flex-col1">
                 <button
-                  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                  className={
+                    carInfo.available === false
+                      ? "max-w-xs flex-1 bg-gray-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500 sm:w-full"
+                      : "max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                  }
                   onClick={modalHandler}
+                  disabled={carInfo.available === false ? true : false}
                 >
                   Book Now
                 </button>
@@ -154,6 +178,7 @@ export default function CarOverView() {
         </div>
       </div>
       {modalOn && <Modal setModalOn={setModalOn} />}
+      <Footer />
     </div>
   );
 }

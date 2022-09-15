@@ -17,6 +17,7 @@ export default function Bookings() {
         console.log(error);
       });
   });
+
   // function for delete
   async function removeBooking(id) {
     try {
@@ -61,26 +62,27 @@ export default function Bookings() {
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
-                          From Date
+                          Duration
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
-                          Return Date
+                          Amount
                         </th>
+
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
-                          Status
+                          Plate Number
                         </th>
-                        <th
+                        {/* <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
                           Edit
-                        </th>
+                        </th> */}
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -113,24 +115,22 @@ export default function Bookings() {
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             <div className="text-gray-900">{booking.email}</div>
                             <div className="text-gray-500">
-                              {booking.modelYear}
+                              Booking ID: {booking.bookingID}
                             </div>
                           </td>
 
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {booking.fromDateTime}
+                            {booking.duration}
                           </td>
-
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {booking.returnDateTime}
+                            ${booking.amount}
                           </td>
-
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                              {booking.status}
+                              {booking.plateNumber}
                             </span>
                           </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                          {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <Link
                               to={`/admin/carregistration/edit/${booking._id}`}
                               className="text-indigo-600 hover:text-indigo-900"
@@ -140,7 +140,7 @@ export default function Bookings() {
                                 {booking.modelName}
                               </span>
                             </Link>
-                          </td>
+                          </td> */}
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <div
                               className="text-red-600 hover:text-red-900 cursor-pointer"

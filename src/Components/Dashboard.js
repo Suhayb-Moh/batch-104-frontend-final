@@ -1,9 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import CarRegistration from "../Pages/Admin/CarRegistration";
-import { HomeIcon, MenuIcon, UsersIcon, XIcon } from "@heroicons/react/outline";
+import { HomeIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { HiBookmark, HiOutlineViewBoards } from "react-icons/hi";
 import { AiFillCar } from "react-icons/ai";
 
@@ -124,17 +123,10 @@ export default function Dashboard() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 mx-auto">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-              <div className="flex items-center flex-shrink-0 px-4">
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                  alt="Workflow"
-                />
-              </div>
               <nav className="mt-5 flex-1 px-2 space-y-1">
                 {navigation.map((item, index) => (
                   <Link

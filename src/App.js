@@ -4,9 +4,9 @@ import { UserContext } from "./Utils/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Components/Header";
+import ShowCategories from "./Pages/Categories";
 import Home from "./Pages/Home";
-import Footer from "./Components/Footer";
+
 import PageNotFound from "./Pages/PageNotFound";
 import Signup from "./Pages/Signup";
 import CarOverView from "./Pages/CarOverView";
@@ -39,10 +39,10 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <BrowserRouter>
-        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cars" element={<Cars />} />
+          <Route path="/allcategories" element={<ShowCategories />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/updatepassword" element={<ChangePassword />} />
@@ -80,7 +80,6 @@ function App() {
         />
         {/* Same as */}
         <ToastContainer />
-        <Footer />
       </BrowserRouter>
     </UserContext.Provider>
   );

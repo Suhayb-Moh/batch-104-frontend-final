@@ -3,8 +3,12 @@ import { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../Utils/UserContext";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import { useEffect } from "react";
 export default function Signup() {
   const [inputs, setInputs] = useState({});
+  const [image, setImages] = useState();
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   async function onSubmitHandler() {
@@ -24,8 +28,15 @@ export default function Signup() {
       console.log(error.response.data.message);
     }
   }
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/categories").then((res) => {
+      setImages(res.data.categories[1].image);
+    });
+  }, []);
   return (
     <>
+      <Header />
       <div className="min-h-screen flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -180,11 +191,12 @@ export default function Signup() {
         <div className="hidden lg:block relative w-0 flex-1">
           <img
             className="absolute inset-0 h-full w-full object-cover"
-            src="https://scontent.fhga1-1.fna.fbcdn.net/v/t39.30808-6/295556190_3245614699057594_3135515241765743762_n.jpg?stp=cp1_dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=SdNw4F5OCIwAX_Gh6tH&_nc_ht=scontent.fhga1-1.fna&oh=00_AT_v_ThuFtZGNPsijZBEy_gNe_7vTwrSg526cGPFdA60aw&oe=62FE2920"
+            src={`http://localhost:8000/${image}`}
             alt=""
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
